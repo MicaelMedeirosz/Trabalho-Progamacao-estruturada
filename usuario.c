@@ -25,7 +25,23 @@ void cadastrarUsuario(Usuario usuarios[], int *quantidade) {
 
 /* Micael: lista todos os usuarios cadastrados. */
 void listarUsuarios(Usuario usuarios[], int quantidade) {
-    /* Implementacao na etapa 3. */
+    int i;
+
+    /* Micael: se nenhum usuario foi cadastrado, avisa e volta pro menu. */
+    if (quantidade == 0) {
+        printf("\nNenhum usuario cadastrado.\n");
+        return;
+    }
+
+    printf("\n%-12s %-30s %s\n", "Matricula", "Nome", "Curso");
+    printf("--------------------------------------------------------------\n");
+
+    for (i = 0; i < quantidade; i++) {
+        printf("%-12d %-30s %s\n",
+               usuarios[i].matricula,
+               usuarios[i].nome,
+               usuarios[i].curso);
+    }
 }
 
 /* Micael: percorre o array comparando a matricula informada. */
