@@ -51,8 +51,16 @@ void mostrarUsuario(Usuario usuario) {
     printf("Curso: %s\n", usuario.curso);
 }
 
-/* Micael: percorre o array comparando a matricula informada. */
+/* Micael: percorre o array comparando a matricula informada.
+   Busca sequencial: comeca no primeiro usuario e vai ate o final do array. */
 int buscarUsuarioPorMatricula(Usuario usuarios[], int quantidade, int matricula) {
-    /* Implementacao na etapa 4. */
+    int i;
+
+    for (i = 0; i < quantidade; i++) {
+        if (usuarios[i].matricula == matricula) {
+            return i;
+        }
+    }
+
     return -1;
 }
