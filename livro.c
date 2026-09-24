@@ -1,5 +1,6 @@
 /* livro.c - funcoes de cadastro, listagem e busca de livros. */
 #include <stdio.h>
+#include <string.h>
 #include "livro.h"
 
 /* Micael: cadastra um novo livro no array de livros. */
@@ -61,9 +62,17 @@ void mostrarLivro(Livro livro) {
     printf("Quantidade disponivel: %d\n", livro.quantidade);
 }
 
-/* Micael: percorre o array comparando o titulo informado. */
+/* Micael: percorre o array comparando o titulo informado.
+   Busca sequencial: comeca no primeiro livro e vai ate o final do array. */
 int buscarLivroPorTitulo(Livro livros[], int quantidade, char titulo[]) {
-    /* Implementacao na etapa 4. */
+    int i;
+
+    for (i = 0; i < quantidade; i++) {
+        if (strcmp(livros[i].titulo, titulo) == 0) {
+            return i;
+        }
+    }
+
     return -1;
 }
 
