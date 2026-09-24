@@ -31,7 +31,25 @@ void cadastrarLivro(Livro livros[], int *quantidade) {
 
 /* Micael: lista todos os livros cadastrados. */
 void listarLivros(Livro livros[], int quantidade) {
-    /* Implementacao na etapa 2. */
+    int i;
+
+    /* Micael: se nenhum livro foi cadastrado, avisa e volta pro menu. */
+    if (quantidade == 0) {
+        printf("\nNenhum livro cadastrado.\n");
+        return;
+    }
+
+    printf("\n%-8s %-30s %-25s %-6s %s\n", "Codigo", "Titulo", "Autor", "Ano", "Quantidade");
+    printf("------------------------------------------------------------------------------\n");
+
+    for (i = 0; i < quantidade; i++) {
+        printf("%-8d %-30s %-25s %-6d %d\n",
+               livros[i].codigo,
+               livros[i].titulo,
+               livros[i].autor,
+               livros[i].ano,
+               livros[i].quantidade);
+    }
 }
 
 /* Micael: percorre o array comparando o titulo informado. */
