@@ -52,6 +52,15 @@ void listarLivros(Livro livros[], int quantidade) {
     }
 }
 
+/* Micael: mostra os dados de um livro na tela. */
+void mostrarLivro(Livro livro) {
+    printf("\nCodigo: %d\n", livro.codigo);
+    printf("Titulo: %s\n", livro.titulo);
+    printf("Autor: %s\n", livro.autor);
+    printf("Ano: %d\n", livro.ano);
+    printf("Quantidade disponivel: %d\n", livro.quantidade);
+}
+
 /* Micael: percorre o array comparando o titulo informado. */
 int buscarLivroPorTitulo(Livro livros[], int quantidade, char titulo[]) {
     /* Implementacao na etapa 4. */

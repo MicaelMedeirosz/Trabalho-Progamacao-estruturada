@@ -17,6 +17,9 @@ void cadastrarUsuario(Usuario usuarios[], int *quantidade);
 
 void listarUsuarios(Usuario usuarios[], int quantidade);
 
+/* Micael: mostra os dados de um usuario na tela. */
+void mostrarUsuario(Usuario usuario);
+
 /* Micael: busca sequencial de usuario pela matricula. Retorna a posicao ou -1. */
 int buscarUsuarioPorMatricula(Usuario usuarios[], int quantidade, int matricula);
 

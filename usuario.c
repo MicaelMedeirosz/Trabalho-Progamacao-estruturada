@@ -44,6 +44,13 @@ void listarUsuarios(Usuario usuarios[], int quantidade) {
     }
 }
 
+/* Micael: mostra os dados de um usuario na tela. */
+void mostrarUsuario(Usuario usuario) {
+    printf("\nMatricula: %d\n", usuario.matricula);
+    printf("Nome: %s\n", usuario.nome);
+    printf("Curso: %s\n", usuario.curso);
+}
+
 /* Micael: percorre o array comparando a matricula informada. */
 int buscarUsuarioPorMatricula(Usuario usuarios[], int quantidade, int matricula) {
     /* Implementacao na etapa 4. */

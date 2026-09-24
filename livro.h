@@ -19,6 +19,9 @@ void cadastrarLivro(Livro livros[], int *quantidade);
 
 void listarLivros(Livro livros[], int quantidade);
 
+/* Micael: mostra os dados de um livro na tela. */
+void mostrarLivro(Livro livro);
+
 /* Micael: busca sequencial de livro pelo titulo. Retorna a posicao ou -1. */
 int buscarLivroPorTitulo(Livro livros[], int quantidade, char titulo[]);
 
