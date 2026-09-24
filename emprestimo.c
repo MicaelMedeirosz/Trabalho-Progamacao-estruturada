@@ -37,7 +37,7 @@ void registrarEmprestimo(Emprestimo emprestimos[], int *quantidade,
     }
 
     /* Micael: verifica se existe quantidade disponivel antes do emprestimo. */
-    if (livros[poslivro].quantidade <= 0) {
+    if (livros[posLivro].quantidade <= 0) {
         printf("Quantidade de livros indisponivel.\n");
         return;
     }
