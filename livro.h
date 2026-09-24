@@ -25,6 +25,9 @@ void mostrarLivro(Livro livro);
 /* Micael: busca sequencial de livro pelo titulo. Retorna a posicao ou -1. */
 int buscarLivroPorTitulo(Livro livros[], int quantidade, char titulo[]);
 
+/* Micael: busca sequencial de livro pelo codigo. Retorna a posicao ou -1. */
+int buscarLivroPorCodigo(Livro livros[], int quantidade, int codigo);
+
 /* Micael: busca sequencial de livro pelo autor. Retorna a posicao ou -1. */
 int buscarLivroPorAutor(Livro livros[], int quantidade, char autor[]);
 

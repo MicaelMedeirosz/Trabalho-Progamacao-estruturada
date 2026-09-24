@@ -76,6 +76,19 @@ int buscarLivroPorTitulo(Livro livros[], int quantidade, char titulo[]) {
     return -1;
 }
 
+/* Micael: busca sequencial de livro pelo codigo. Retorna a posicao ou -1. */
+int buscarLivroPorCodigo(Livro livros[], int quantidade, int codigo) {
+    int i;
+
+    for (i = 0; i < quantidade; i++) {
+        if (livros[i].codigo == codigo) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 /* Micael: percorre o array comparando o autor informado.
    Busca sequencial: retorna a posicao do primeiro livro encontrado. */
 int buscarLivroPorAutor(Livro livros[], int quantidade, char autor[]) {
