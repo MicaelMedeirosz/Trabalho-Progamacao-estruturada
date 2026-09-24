@@ -76,8 +76,16 @@ int buscarLivroPorTitulo(Livro livros[], int quantidade, char titulo[]) {
     return -1;
 }
 
-/* Micael: percorre o array comparando o autor informado. */
+/* Micael: percorre o array comparando o autor informado.
+   Busca sequencial: retorna a posicao do primeiro livro encontrado. */
 int buscarLivroPorAutor(Livro livros[], int quantidade, char autor[]) {
-    /* Implementacao na etapa 4. */
+    int i;
+
+    for (i = 0; i < quantidade; i++) {
+        if (strcmp(livros[i].autor, autor) == 0) {
+            return i;
+        }
+    }
+
     return -1;
 }
