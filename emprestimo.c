@@ -61,5 +61,26 @@ void registrarDevolucao(Emprestimo emprestimos[], int quantidade,
 
 /* Micael: lista os emprestimos registrados com a situacao atual. */
 void listarEmprestimos(Emprestimo emprestimos[], int quantidade) {
-    /* Implementacao na etapa 5. */
+    int i;
+
+    /* Micael: se nenhum emprestimo foi registrado, avisa e volta pro menu. */
+    if (quantidade == 0) {
+        printf("\nNenhum emprestimo registrado.\n");
+        return;
+    }
+
+    printf("\n%-16s %-22s %s\n", "Codigo do livro", "Matricula do usuario", "Situacao");
+    printf("------------------------------------------------------------\n");
+
+    for (i = 0; i < quantidade; i++) {
+        if (emprestimos[i].ativo == 1) {
+            printf("%-16d %-22d Emprestado\n",
+                   emprestimos[i].codigoLivro,
+                   emprestimos[i].matriculaUsuario);
+        } else {
+            printf("%-16d %-22d Devolvido\n",
+                   emprestimos[i].codigoLivro,
+                   emprestimos[i].matriculaUsuario);
+        }
+    }
 }
