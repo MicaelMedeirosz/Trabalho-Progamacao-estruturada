@@ -4,7 +4,29 @@
 
 /* Micael: cadastra um novo livro no array de livros. */
 void cadastrarLivro(Livro livros[], int *quantidade) {
-    /* Implementacao na etapa 2. */
+    /* Micael: verifica se o array de livros ja esta cheio. */
+    if (*quantidade >= MAX_LIVROS) {
+        printf("Nao e possivel cadastrar mais livros. Limite alcancado.\n");
+        return;
+    }
+
+    printf("\nCodigo: ");
+    scanf("%d", &livros[*quantidade].codigo);
+
+    printf("Titulo: ");
+    scanf(" %[^\n]", livros[*quantidade].titulo);
+
+    printf("Autor: ");
+    scanf(" %[^\n]", livros[*quantidade].autor);
+
+    printf("Ano: ");
+    scanf("%d", &livros[*quantidade].ano);
+
+    printf("Quantidade disponivel: ");
+    scanf("%d", &livros[*quantidade].quantidade);
+
+    (*quantidade)++;
+    printf("Livro cadastrado com sucesso.\n");
 }
 
 /* Micael: lista todos os livros cadastrados. */
