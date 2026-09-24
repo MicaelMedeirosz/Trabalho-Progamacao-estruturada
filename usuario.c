@@ -4,7 +4,23 @@
 
 /* Micael: cadastra um novo usuario no array de usuarios. */
 void cadastrarUsuario(Usuario usuarios[], int *quantidade) {
-    /* Implementacao na etapa 3. */
+    /* Micael: verifica se o array de usuarios ja esta cheio. */
+    if (*quantidade >= MAX_USUARIOS) {
+        printf("Nao e possivel cadastrar mais usuarios. Limite alcancado.\n");
+        return;
+    }
+
+    printf("\nMatricula: ");
+    scanf("%d", &usuarios[*quantidade].matricula);
+
+    printf("Nome: ");
+    scanf(" %[^\n]", usuarios[*quantidade].nome);
+
+    printf("Curso: ");
+    scanf(" %[^\n]", usuarios[*quantidade].curso);
+
+    (*quantidade)++;
+    printf("Usuario cadastrado com sucesso.\n");
 }
 
 /* Micael: lista todos os usuarios cadastrados. */
