@@ -3,13 +3,16 @@
 
 #include "livro.h"
 #include "usuario.h"
+#include "emprestimo.h"
 
 int main(void) {
     /* Micael: arrays estaticos de livros e usuarios com seus contadores. */
     Livro livros[MAX_LIVROS];
     Usuario usuarios[MAX_USUARIOS];
+    Emprestimo emprestimos[MAX_EMPRESTIMOS];
     int quantidadeLivros = 0;
     int quantidadeUsuarios = 0;
+    int quantidadeEmprestimos = 0;
     int opcao;
     int posicao;
     int matriculaBusca;
@@ -26,6 +29,8 @@ int main(void) {
         printf("5 - Cadastrar usuario\n");
         printf("6 - Listar usuarios\n");
         printf("7 - Buscar usuario por matricula\n");
+        printf("8 - Registrar emprestimo\n");
+        printf("10 - Listar emprestimos\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
@@ -72,6 +77,14 @@ int main(void) {
                 } else {
                     mostrarUsuario(usuarios[posicao]);
                 }
+                break;
+            case 8:
+                registrarEmprestimo(emprestimos, &quantidadeEmprestimos,
+                                   livros, quantidadeLivros,
+                                   usuarios, quantidadeUsuarios);
+                break;
+            case 10:
+                listarEmprestimos(emprestimos, quantidadeEmprestimos);
                 break;
             case 0:
                 printf("Encerrando o sistema...\n");
