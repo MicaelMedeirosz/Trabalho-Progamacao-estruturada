@@ -1,0 +1,9 @@
+# executaveis e arquivos gerados
+*.exe
+*.o
+*.obj
+
+# arquivos de dados gerados pelo sistema em execucao
+# livros.txt
+# usuarios.txt
+# emprestimos.txt
