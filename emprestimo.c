@@ -60,36 +60,39 @@ void registrarDevolucao(Emprestimo emprestimos[], int quantidade,
     int matricula;
     int posLivro;
     int i;
-    int achou;
+    int posEmprestimo;
 
     printf("\nCodigo do livro: ");
     scanf("%d", &codigoLivro);
     printf("Matricula do usuario: ");
     scanf("%d", &matricula);
 
-    /* Micael: busca sequencial do emprestimo pelo codigo do livro e matricula. */
-    achou = 0;
+    /* Micael: busca sequencial de um emprestimo ativo desse livro com esse usuario. */
+    posEmprestimo = -1;
     for (i = 0; i < quantidade; i++) {
         if (emprestimos[i].codigoLivro == codigoLivro &&
-            emprestimos[i].matriculaUsuario == matricula) {
-            achou = 1;
+            emprestimos[i].matriculaUsuario == matricula &&
+            emprestimos[i].ativo == 1) {
+            posEmprestimo = i;
             break;
         }
     }
 
-    if (!achou) {
+    if (posEmprestimo == -1) {
+        /* Micael: sem emprestimo ativo, verifica se existe um ja devolvido. */
+        for (i = 0; i < quantidade; i++) {
+            if (emprestimos[i].codigoLivro == codigoLivro &&
+                emprestimos[i].matriculaUsuario == matricula) {
+                printf("Este emprestimo ja foi devolvido.\n");
+                return;
+            }
+        }
         printf("Emprestimo nao encontrado.\n");
         return;
     }
 
-    /* Micael: verifica se o emprestimo ja foi devolvido antes. */
-    if (emprestimos[i].ativo == 0) {
-        printf("Este emprestimo ja foi devolvido.\n");
-        return;
-    }
-
     /* Micael: marca como devolvido e devolve uma unidade ao acervo. */
-    emprestimos[i].ativo = 0;
+    emprestimos[posEmprestimo].ativo = 0;
 
     posLivro = buscarLivroPorCodigo(livros, quantidadeLivros, codigoLivro);
     livros[posLivro].quantidade++;
