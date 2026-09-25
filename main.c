@@ -4,6 +4,7 @@
 #include "livro.h"
 #include "usuario.h"
 #include "emprestimo.h"
+#include "arquivo.h"
 
 int main(void) {
     /* Micael: arrays estaticos de livros e usuarios com seus contadores. */
@@ -17,6 +18,9 @@ int main(void) {
     int posicao;
     int matriculaBusca;
     char textoBusca[TAM_TITULO];
+
+    /* Micael: carrega os livros salvos no arquivo de texto ao iniciar. */
+    carregarLivros(livros, &quantidadeLivros);
 
     do {
         printf("========================================\n");
@@ -92,6 +96,8 @@ int main(void) {
                 listarEmprestimos(emprestimos, quantidadeEmprestimos);
                 break;
             case 0:
+                /* Micael: salva os dados nos arquivos antes de encerrar. */
+                salvarLivros(livros, quantidadeLivros);
                 printf("Encerrando o sistema...\n");
                 break;
             default:

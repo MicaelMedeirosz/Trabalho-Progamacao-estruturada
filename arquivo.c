@@ -4,12 +4,46 @@
 
 /* Micael: carrega os livros armazenados no arquivo livros.txt. */
 void carregarLivros(Livro livros[], int *quantidade) {
-    /* Implementacao na etapa 7. */
+    FILE *arquivo;
+    int i;
+
+    /* Se o arquivo ainda nao existe, e a primeira execucao do sistema. */
+    arquivo = fopen("livros.txt", "r");
+    if (arquivo == NULL) {
+        return;
+    }
+
+    i = 0;
+    /* Micael: le cada linha do arquivo ate o final ou encher o array. */
+    while (i < MAX_LIVROS &&
+           fscanf(arquivo, "%d;%99[^;];%99[^;];%d;%d",
+                  &livros[i].codigo, livros[i].titulo, livros[i].autor,
+                  &livros[i].ano, &livros[i].quantidade) == 5) {
+        i++;
+    }
+
+    *quantidade = i;
+    fclose(arquivo);
 }
 
 /* Micael: salva os livros no arquivo de texto. */
 void salvarLivros(Livro livros[], int quantidade) {
-    /* Implementacao na etapa 7. */
+    FILE *arquivo;
+    int i;
+
+    arquivo = fopen("livros.txt", "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo de livros.\n");
+        return;
+    }
+
+    for (i = 0; i < quantidade; i++) {
+        fprintf(arquivo, "%d;%s;%s;%d;%d\n",
+                livros[i].codigo, livros[i].titulo,
+                livros[i].autor, livros[i].ano, livros[i].quantidade);
+    }
+
+    fclose(arquivo);
 }
 
 /* Micael: carrega os usuarios armazenados no arquivo usuarios.txt. */
