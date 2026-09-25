@@ -56,7 +56,45 @@ void registrarEmprestimo(Emprestimo emprestimos[], int *quantidade,
 /* Micael: registra a devolucao e devolve uma unidade ao acervo. */
 void registrarDevolucao(Emprestimo emprestimos[], int quantidade,
                         Livro livros[], int quantidadeLivros) {
-    /* Implementacao na etapa 6. */
+    int codigoLivro;
+    int matricula;
+    int posLivro;
+    int i;
+    int achou;
+
+    printf("\nCodigo do livro: ");
+    scanf("%d", &codigoLivro);
+    printf("Matricula do usuario: ");
+    scanf("%d", &matricula);
+
+    /* Micael: busca sequencial do emprestimo pelo codigo do livro e matricula. */
+    achou = 0;
+    for (i = 0; i < quantidade; i++) {
+        if (emprestimos[i].codigoLivro == codigoLivro &&
+            emprestimos[i].matriculaUsuario == matricula) {
+            achou = 1;
+            break;
+        }
+    }
+
+    if (!achou) {
+        printf("Emprestimo nao encontrado.\n");
+        return;
+    }
+
+    /* Micael: verifica se o emprestimo ja foi devolvido antes. */
+    if (emprestimos[i].ativo == 0) {
+        printf("Este emprestimo ja foi devolvido.\n");
+        return;
+    }
+
+    /* Micael: marca como devolvido e devolve uma unidade ao acervo. */
+    emprestimos[i].ativo = 0;
+
+    posLivro = buscarLivroPorCodigo(livros, quantidadeLivros, codigoLivro);
+    livros[posLivro].quantidade++;
+
+    printf("Devolucao registrada com sucesso.\n");
 }
 
 /* Micael: lista os emprestimos registrados com a situacao atual. */
