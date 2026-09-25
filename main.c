@@ -30,6 +30,7 @@ int main(void) {
         printf("6 - Listar usuarios\n");
         printf("7 - Buscar usuario por matricula\n");
         printf("8 - Registrar emprestimo\n");
+        printf("9 - Registrar devolucao\n");
         printf("10 - Listar emprestimos\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
@@ -82,6 +83,10 @@ int main(void) {
                 registrarEmprestimo(emprestimos, &quantidadeEmprestimos,
                                    livros, quantidadeLivros,
                                    usuarios, quantidadeUsuarios);
+                break;
+            case 9:
+                registrarDevolucao(emprestimos, quantidadeEmprestimos,
+                                   livros, quantidadeLivros);
                 break;
             case 10:
                 listarEmprestimos(emprestimos, quantidadeEmprestimos);
