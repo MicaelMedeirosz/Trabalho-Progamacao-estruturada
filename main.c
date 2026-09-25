@@ -6,6 +6,22 @@
 #include "emprestimo.h"
 #include "arquivo.h"
 
+/* Micael: le a opcao do menu e trata o caso do usuario digitar letras.
+   Se a entrada nao for um numero, limpa o buffer e devolve -1,
+   que cai no default do switch como opcao invalida. */
+int lerOpcao(void) {
+    int opcao;
+    int c;
+
+    if (scanf("%d", &opcao) != 1) {
+        while ((c = getchar()) != '\n' && c != EOF) {
+        }
+        return -1;
+    }
+
+    return opcao;
+}
+
 int main(void) {
     /* Micael: arrays estaticos de livros e usuarios com seus contadores. */
     Livro livros[MAX_LIVROS];
@@ -23,7 +39,6 @@ int main(void) {
     carregarLivros(livros, &quantidadeLivros);
     carregarUsuarios(usuarios, &quantidadeUsuarios);
     carregarEmprestimos(emprestimos, &quantidadeEmprestimos);
-
     do {
         printf("\n");
         printf("========================================\n");
@@ -44,7 +59,7 @@ int main(void) {
         printf("\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
-        scanf("%d", &opcao);
+        opcao = lerOpcao();
 
         switch (opcao) {
             case 1:
