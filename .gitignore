@@ -4,6 +4,6 @@
 *.obj
 
 # arquivos de dados gerados pelo sistema em execucao
-# livros.txt
-# usuarios.txt
-# emprestimos.txt
+livros.txt
+usuarios.txt
+emprestimos.txt
