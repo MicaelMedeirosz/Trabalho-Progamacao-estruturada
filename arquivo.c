@@ -90,10 +90,46 @@ void salvarUsuarios(Usuario usuarios[], int quantidade) {
 
 /* Micael: carrega os emprestimos armazenados no arquivo emprestimos.txt. */
 void carregarEmprestimos(Emprestimo emprestimos[], int *quantidade) {
-    /* Implementacao na etapa 7. */
+    FILE *arquivo;
+    int i;
+
+    /* Se o arquivo ainda nao existe, e a primeira execucao do sistema. */
+    arquivo = fopen("emprestimos.txt", "r");
+    if (arquivo == NULL) {
+        return;
+    }
+
+    i = 0;
+    /* Micael: le cada linha do arquivo ate o final ou encher o array. */
+    while (i < MAX_EMPRESTIMOS &&
+           fscanf(arquivo, "%d;%d;%d",
+                  &emprestimos[i].codigoLivro,
+                  &emprestimos[i].matriculaUsuario,
+                  &emprestimos[i].ativo) == 3) {
+        i++;
+    }
+
+    *quantidade = i;
+    fclose(arquivo);
 }
 
 /* Micael: salva os emprestimos no arquivo de texto. */
 void salvarEmprestimos(Emprestimo emprestimos[], int quantidade) {
-    /* Implementacao na etapa 7. */
+    FILE *arquivo;
+    int i;
+
+    arquivo = fopen("emprestimos.txt", "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo de emprestimos.\n");
+        return;
+    }
+
+    for (i = 0; i < quantidade; i++) {
+        fprintf(arquivo, "%d;%d;%d\n",
+                emprestimos[i].codigoLivro,
+                emprestimos[i].matriculaUsuario,
+                emprestimos[i].ativo);
+    }
+
+    fclose(arquivo);
 }

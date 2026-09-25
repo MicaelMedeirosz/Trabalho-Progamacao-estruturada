@@ -22,6 +22,7 @@ int main(void) {
     /* Micael: carrega os livros salvos no arquivo de texto ao iniciar. */
     carregarLivros(livros, &quantidadeLivros);
     carregarUsuarios(usuarios, &quantidadeUsuarios);
+    carregarEmprestimos(emprestimos, &quantidadeEmprestimos);
 
     do {
         printf("========================================\n");
@@ -100,6 +101,7 @@ int main(void) {
                 /* Micael: salva os dados nos arquivos antes de encerrar. */
                 salvarLivros(livros, quantidadeLivros);
                 salvarUsuarios(usuarios, quantidadeUsuarios);
+                salvarEmprestimos(emprestimos, quantidadeEmprestimos);
                 printf("Encerrando o sistema...\n");
                 break;
             default:
