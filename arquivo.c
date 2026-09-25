@@ -59,7 +59,7 @@ void carregarUsuarios(Usuario usuarios[], int *quantidade) {
 
     i = 0;
     /* Micael: le cada linha do arquivo ate o final ou encher o array. */
-    while (i < MAX_USUARIO &&
+    while (i < MAX_USUARIOS &&
            fscanf(arquivo, "%d;%99[^;];%99[^\n]",
                   &usuarios[i].matricula, usuarios[i].nome, usuarios[i].curso) == 3) {
         i++;
