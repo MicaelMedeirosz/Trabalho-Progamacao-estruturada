@@ -25,6 +25,7 @@ int main(void) {
     carregarEmprestimos(emprestimos, &quantidadeEmprestimos);
 
     do {
+        printf("\n");
         printf("========================================\n");
         printf("     SISTEMA DE BIBLIOTECA\n");
         printf("========================================\n");
@@ -32,12 +33,15 @@ int main(void) {
         printf("2 - Listar livros\n");
         printf("3 - Buscar livro por titulo\n");
         printf("4 - Buscar livro por autor\n");
+        printf("\n");
         printf("5 - Cadastrar usuario\n");
         printf("6 - Listar usuarios\n");
         printf("7 - Buscar usuario por matricula\n");
+        printf("\n");
         printf("8 - Registrar emprestimo\n");
         printf("9 - Registrar devolucao\n");
         printf("10 - Listar emprestimos\n");
+        printf("\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &opcao);
