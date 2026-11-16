@@ -109,3 +109,79 @@ int buscarLivroPorAutor(Livro livros[], int quantidade, char autor[]) {
 
     return -1;
 }
+
+/* Troca dois livros de posicao no array. */
+void trocarLivros(Livro *a, Livro *b) {
+    Livro temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+/* Parte 2: Bubble Sort - ordena livros por titulo (ordem alfabetica). */
+void ordenarLivrosPorTitulo(Livro livros[], int quantidade) {
+    int i, j;
+    int trocou;
+
+    if (quantidade <= 1) {
+        return;
+    }
+
+    for (i = 0; i < quantidade - 1; i++) {
+        trocou = 0;
+        for (j = 0; j < quantidade - i - 1; j++) {
+            if (strcmp(livros[j].titulo, livros[j + 1].titulo) > 0) {
+                trocarLivros(&livros[j], &livros[j + 1]);
+                trocou = 1;
+            }
+        }
+        if (!trocou) {
+            break;
+        }
+    }
+}
+
+/* Parte 2: Bubble Sort - ordena livros por autor (ordem alfabetica). */
+void ordenarLivrosPorAutor(Livro livros[], int quantidade) {
+    int i, j;
+    int trocou;
+
+    if (quantidade <= 1) {
+        return;
+    }
+
+    for (i = 0; i < quantidade - 1; i++) {
+        trocou = 0;
+        for (j = 0; j < quantidade - i - 1; j++) {
+            if (strcmp(livros[j].autor, livros[j + 1].autor) > 0) {
+                trocarLivros(&livros[j], &livros[j + 1]);
+                trocou = 1;
+            }
+        }
+        if (!trocou) {
+            break;
+        }
+    }
+}
+
+/* Parte 2: Bubble Sort - ordena livros por ano (crescente). */
+void ordenarLivrosPorAno(Livro livros[], int quantidade) {
+    int i, j;
+    int trocou;
+
+    if (quantidade <= 1) {
+        return;
+    }
+
+    for (i = 0; i < quantidade - 1; i++) {
+        trocou = 0;
+        for (j = 0; j < quantidade - i - 1; j++) {
+            if (livros[j].ano > livros[j + 1].ano) {
+                trocarLivros(&livros[j], &livros[j + 1]);
+                trocou = 1;
+            }
+        }
+        if (!trocou) {
+            break;
+        }
+    }
+}

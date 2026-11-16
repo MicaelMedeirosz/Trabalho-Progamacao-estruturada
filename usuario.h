@@ -26,4 +26,9 @@ void mostrarUsuario(Usuario usuario);
 /* Micael: busca sequencial de usuario pela matricula. Retorna a posicao ou -1. */
 int buscarUsuarioPorMatricula(Usuario usuarios[], int quantidade, int matricula);
 
+/* Parte 2: ordenacao manual (Selection Sort) de usuarios. */
+void ordenarUsuariosPorMatricula(Usuario usuarios[], int quantidade);
+
+void ordenarUsuariosPorNome(Usuario usuarios[], int quantidade);
+
 #endif

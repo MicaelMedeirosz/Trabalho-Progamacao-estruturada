@@ -62,6 +62,12 @@ int main(void) {
         printf("10 - Listar emprestimos\n");
         printf("11 - Consultar multa de emprestimo\n");
         printf("\n");
+        printf("12 - Ordenar livros por titulo\n");
+        printf("13 - Ordenar livros por autor\n");
+        printf("14 - Ordenar livros por ano\n");
+        printf("15 - Ordenar usuarios por matricula\n");
+        printf("16 - Ordenar usuarios por nome\n");
+        printf("\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
         opcao = lerOpcao();
@@ -123,6 +129,26 @@ int main(void) {
                 break;
             case 11:
                 consultarMultaEmprestimo(emprestimos, quantidadeEmprestimos);
+                break;
+            case 12:
+                ordenarLivrosPorTitulo(livros, quantidadeLivros);
+                printf("Livros ordenados por titulo.\n");
+                break;
+            case 13:
+                ordenarLivrosPorAutor(livros, quantidadeLivros);
+                printf("Livros ordenados por autor.\n");
+                break;
+            case 14:
+                ordenarLivrosPorAno(livros, quantidadeLivros);
+                printf("Livros ordenados por ano.\n");
+                break;
+            case 15:
+                ordenarUsuariosPorMatricula(usuarios, quantidadeUsuarios);
+                printf("Usuarios ordenados por matricula.\n");
+                break;
+            case 16:
+                ordenarUsuariosPorNome(usuarios, quantidadeUsuarios);
+                printf("Usuarios ordenados por nome.\n");
                 break;
             case 0:
                 /* Micael: salva os dados nos arquivos antes de encerrar. */

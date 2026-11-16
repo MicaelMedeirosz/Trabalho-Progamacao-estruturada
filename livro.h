@@ -34,4 +34,11 @@ int buscarLivroPorCodigo(Livro livros[], int quantidade, int codigo);
 /* Micael: busca sequencial de livro pelo autor. Retorna a posicao ou -1. */
 int buscarLivroPorAutor(Livro livros[], int quantidade, char autor[]);
 
+/* Parte 2: ordenacao manual (Bubble Sort) de livros. */
+void ordenarLivrosPorTitulo(Livro livros[], int quantidade);
+
+void ordenarLivrosPorAutor(Livro livros[], int quantidade);
+
+void ordenarLivrosPorAno(Livro livros[], int quantidade);
+
 #endif
