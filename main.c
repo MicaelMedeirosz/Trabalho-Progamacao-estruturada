@@ -67,6 +67,11 @@ int main(void) {
         printf("14 - Ordenar livros por ano\n");
         printf("15 - Ordenar usuarios por matricula\n");
         printf("16 - Ordenar usuarios por nome\n");
+        printf("17 - Buscar livro por titulo (binaria)\n");
+        printf("18 - Buscar usuario por matricula (binaria)\n");
+        printf("\n");
+        printf("19 - Salvar dados em arquivo binario\n");
+        printf("20 - Carregar dados de arquivo binario\n");
         printf("\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
@@ -149,6 +154,38 @@ int main(void) {
             case 16:
                 ordenarUsuariosPorNome(usuarios, quantidadeUsuarios);
                 printf("Usuarios ordenados por nome.\n");
+                break;
+            case 17:
+                printf("\nTitulo: ");
+                scanf(" %[^\n]", textoBusca);
+                posicao = buscarLivroPorTituloBinario(livros, quantidadeLivros, textoBusca);
+                if (posicao == -1) {
+                    printf("Livro nao encontrado (ou livros nao estao ordenados por titulo).\n");
+                } else {
+                    mostrarLivro(livros[posicao]);
+                }
+                break;
+            case 18:
+                printf("\nMatricula: ");
+                scanf("%d", &matriculaBusca);
+                posicao = buscarUsuarioPorMatriculaBinario(usuarios, quantidadeUsuarios, matriculaBusca);
+                if (posicao == -1) {
+                    printf("Usuario nao encontrado (ou usuarios nao estao ordenados por matricula).\n");
+                } else {
+                    mostrarUsuario(usuarios[posicao]);
+                }
+                break;
+            case 19:
+                salvarLivrosBinario(livros, quantidadeLivros);
+                salvarUsuariosBinario(usuarios, quantidadeUsuarios);
+                salvarEmprestimosBinario(emprestimos, quantidadeEmprestimos);
+                printf("Dados salvos em arquivos binarios.\n");
+                break;
+            case 20:
+                carregarLivrosBinario(&livros, &quantidadeLivros, &capacidadeLivros);
+                carregarUsuariosBinario(&usuarios, &quantidadeUsuarios, &capacidadeUsuarios);
+                carregarEmprestimosBinario(&emprestimos, &quantidadeEmprestimos, &capacidadeEmprestimos);
+                printf("Dados carregados de arquivos binarios.\n");
                 break;
             case 0:
                 /* Micael: salva os dados nos arquivos antes de encerrar. */

@@ -218,3 +218,228 @@ void salvarEmprestimos(Emprestimo emprestimos[], int quantidade) {
 
     fclose(arquivo);
 }
+
+/* Parte 2: salva livros em arquivo binario. */
+void salvarLivrosBinario(Livro livros[], int quantidade) {
+    FILE *arquivo;
+
+    arquivo = fopen("livros.bin", "wb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binario de livros.\n");
+        return;
+    }
+
+    fwrite(&quantidade, sizeof(int), 1, arquivo);
+    fwrite(livros, sizeof(Livro), quantidade, arquivo);
+
+    fclose(arquivo);
+}
+
+/* Parte 2: carrega livros de arquivo binario. */
+void carregarLivrosBinario(Livro **livros, int *quantidade, int *capacidade) {
+    FILE *arquivo;
+    int qtdLida;
+    int capacidadeAtual = CAPACIDADE_INICIAL_LIVROS;
+    Livro *array;
+
+    arquivo = fopen("livros.bin", "rb");
+    if (arquivo == NULL) {
+        array = (Livro *)malloc(capacidadeAtual * sizeof(Livro));
+        if (array == NULL) {
+            printf("Erro: memoria insuficiente para carregar livros binario.\n");
+            return;
+        }
+        *livros = array;
+        *quantidade = 0;
+        *capacidade = capacidadeAtual;
+        return;
+    }
+
+    if (fread(&qtdLida, sizeof(int), 1, arquivo) != 1) {
+        printf("Erro ao ler quantidade de livros do arquivo binario.\n");
+        fclose(arquivo);
+        return;
+    }
+
+    array = (Livro *)malloc(capacidadeAtual * sizeof(Livro));
+    if (array == NULL) {
+        printf("Erro: memoria insuficiente para carregar livros binario.\n");
+        fclose(arquivo);
+        return;
+    }
+
+    if (qtdLida > capacidadeAtual) {
+        int novaCapacidade = qtdLida;
+        Livro *novoArray = (Livro *)realloc(array, novaCapacidade * sizeof(Livro));
+        if (novoArray == NULL) {
+            printf("Erro: memoria insuficiente para carregar livros binario.\n");
+            free(array);
+            fclose(arquivo);
+            return;
+        }
+        array = novoArray;
+        capacidadeAtual = novaCapacidade;
+    }
+
+    if (fread(array, sizeof(Livro), qtdLida, arquivo) != (size_t)qtdLida) {
+        printf("Erro ao ler registros de livros do arquivo binario.\n");
+        free(array);
+        fclose(arquivo);
+        return;
+    }
+
+    *quantidade = qtdLida;
+    *capacidade = capacidadeAtual;
+    *livros = array;
+    fclose(arquivo);
+}
+
+/* Parte 2: salva usuarios em arquivo binario. */
+void salvarUsuariosBinario(Usuario usuarios[], int quantidade) {
+    FILE *arquivo;
+
+    arquivo = fopen("usuarios.bin", "wb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binario de usuarios.\n");
+        return;
+    }
+
+    fwrite(&quantidade, sizeof(int), 1, arquivo);
+    fwrite(usuarios, sizeof(Usuario), quantidade, arquivo);
+
+    fclose(arquivo);
+}
+
+/* Parte 2: carrega usuarios de arquivo binario. */
+void carregarUsuariosBinario(Usuario **usuarios, int *quantidade, int *capacidade) {
+    FILE *arquivo;
+    int qtdLida;
+    int capacidadeAtual = CAPACIDADE_INICIAL_USUARIOS;
+    Usuario *array;
+
+    arquivo = fopen("usuarios.bin", "rb");
+    if (arquivo == NULL) {
+        array = (Usuario *)malloc(capacidadeAtual * sizeof(Usuario));
+        if (array == NULL) {
+            printf("Erro: memoria insuficiente para carregar usuarios binario.\n");
+            return;
+        }
+        *usuarios = array;
+        *quantidade = 0;
+        *capacidade = capacidadeAtual;
+        return;
+    }
+
+    if (fread(&qtdLida, sizeof(int), 1, arquivo) != 1) {
+        printf("Erro ao ler quantidade de usuarios do arquivo binario.\n");
+        fclose(arquivo);
+        return;
+    }
+
+    array = (Usuario *)malloc(capacidadeAtual * sizeof(Usuario));
+    if (array == NULL) {
+        printf("Erro: memoria insuficiente para carregar usuarios binario.\n");
+        fclose(arquivo);
+        return;
+    }
+
+    if (qtdLida > capacidadeAtual) {
+        int novaCapacidade = qtdLida;
+        Usuario *novoArray = (Usuario *)realloc(array, novaCapacidade * sizeof(Usuario));
+        if (novoArray == NULL) {
+            printf("Erro: memoria insuficiente para carregar usuarios binario.\n");
+            free(array);
+            fclose(arquivo);
+            return;
+        }
+        array = novoArray;
+        capacidadeAtual = novaCapacidade;
+    }
+
+    if (fread(array, sizeof(Usuario), qtdLida, arquivo) != (size_t)qtdLida) {
+        printf("Erro ao ler registros de usuarios do arquivo binario.\n");
+        free(array);
+        fclose(arquivo);
+        return;
+    }
+
+    *quantidade = qtdLida;
+    *capacidade = capacidadeAtual;
+    *usuarios = array;
+    fclose(arquivo);
+}
+
+/* Parte 2: salva emprestimos em arquivo binario. */
+void salvarEmprestimosBinario(Emprestimo emprestimos[], int quantidade) {
+    FILE *arquivo;
+
+    arquivo = fopen("emprestimos.bin", "wb");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo binario de emprestimos.\n");
+        return;
+    }
+
+    fwrite(&quantidade, sizeof(int), 1, arquivo);
+    fwrite(emprestimos, sizeof(Emprestimo), quantidade, arquivo);
+
+    fclose(arquivo);
+}
+
+/* Parte 2: carrega emprestimos de arquivo binario. */
+void carregarEmprestimosBinario(Emprestimo **emprestimos, int *quantidade, int *capacidade) {
+    FILE *arquivo;
+    int qtdLida;
+    int capacidadeAtual = CAPACIDADE_INICIAL_EMPRESTIMOS;
+    Emprestimo *array;
+
+    arquivo = fopen("emprestimos.bin", "rb");
+    if (arquivo == NULL) {
+        array = (Emprestimo *)malloc(capacidadeAtual * sizeof(Emprestimo));
+        if (array == NULL) {
+            printf("Erro: memoria insuficiente para carregar emprestimos binario.\n");
+            return;
+        }
+        *emprestimos = array;
+        *quantidade = 0;
+        *capacidade = capacidadeAtual;
+        return;
+    }
+
+    if (fread(&qtdLida, sizeof(int), 1, arquivo) != 1) {
+        printf("Erro ao ler quantidade de emprestimos do arquivo binario.\n");
+        fclose(arquivo);
+        return;
+    }
+
+    array = (Emprestimo *)malloc(capacidadeAtual * sizeof(Emprestimo));
+    if (array == NULL) {
+        printf("Erro: memoria insuficiente para carregar emprestimos binario.\n");
+        fclose(arquivo);
+        return;
+    }
+
+    if (qtdLida > capacidadeAtual) {
+        int novaCapacidade = qtdLida;
+        Emprestimo *novoArray = (Emprestimo *)realloc(array, novaCapacidade * sizeof(Emprestimo));
+        if (novoArray == NULL) {
+            printf("Erro: memoria insuficiente para carregar emprestimos binario.\n");
+            free(array);
+            fclose(arquivo);
+            return;
+        }
+        array = novoArray;
+        capacidadeAtual = novaCapacidade;
+    }
+
+    if (fread(array, sizeof(Emprestimo), qtdLida, arquivo) != (size_t)qtdLida) {
+        printf("Erro ao ler registros de emprestimos do arquivo binario.\n");
+        free(array);
+        fclose(arquivo);
+        return;
+    }
+
+    *quantidade = qtdLida;
+    *capacidade = capacidadeAtual;
+    *emprestimos = array;
+    fclose(arquivo);
+}

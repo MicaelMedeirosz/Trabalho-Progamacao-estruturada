@@ -7,3 +7,6 @@
 livros.txt
 usuarios.txt
 emprestimos.txt
+
+# arquivos binarios gerados pelo sistema em execucao
+*.bin

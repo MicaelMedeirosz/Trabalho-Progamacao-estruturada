@@ -41,4 +41,7 @@ void ordenarLivrosPorAutor(Livro livros[], int quantidade);
 
 void ordenarLivrosPorAno(Livro livros[], int quantidade);
 
+/* Micael: busca binaria de livro por titulo (requer livros ordenados por titulo). */
+int buscarLivroPorTituloBinario(Livro livros[], int quantidade, char titulo[]);
+
 #endif

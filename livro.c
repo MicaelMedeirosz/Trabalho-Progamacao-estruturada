@@ -185,3 +185,35 @@ void ordenarLivrosPorAno(Livro livros[], int quantidade) {
         }
     }
 }
+
+/* Micael: percorre o array usando busca binaria por titulo.
+   Requer que os livros estejam ordenados por titulo antes da busca. */
+int buscarLivroPorTituloBinario(Livro livros[], int quantidade, char titulo[]) {
+    int esquerda;
+    int direita;
+    int meio;
+    int cmp;
+
+    if (quantidade <= 0) {
+        return -1;
+    }
+
+    esquerda = 0;
+    direita = quantidade - 1;
+
+    while (esquerda <= direita) {
+        meio = esquerda + (direita - esquerda) / 2;
+        cmp = strcmp(livros[meio].titulo, titulo);
+
+        if (cmp == 0) {
+            return meio;
+        }
+        if (cmp < 0) {
+            esquerda = meio + 1;
+        } else {
+            direita = meio - 1;
+        }
+    }
+
+    return -1;
+}

@@ -31,4 +31,7 @@ void ordenarUsuariosPorMatricula(Usuario usuarios[], int quantidade);
 
 void ordenarUsuariosPorNome(Usuario usuarios[], int quantidade);
 
+/* Micael: busca binaria de usuario por matricula (requer usuarios ordenados por matricula). */
+int buscarUsuarioPorMatriculaBinario(Usuario usuarios[], int quantidade, int matricula);
+
 #endif

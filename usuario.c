@@ -123,3 +123,33 @@ void ordenarUsuariosPorNome(Usuario usuarios[], int quantidade) {
         }
     }
 }
+
+/* Micael: percorre o array usando busca binaria por matricula.
+   Requer que os usuarios estejam ordenados por matricula antes da busca. */
+int buscarUsuarioPorMatriculaBinario(Usuario usuarios[], int quantidade, int matricula) {
+    int esquerda;
+    int direita;
+    int meio;
+
+    if (quantidade <= 0) {
+        return -1;
+    }
+
+    esquerda = 0;
+    direita = quantidade - 1;
+
+    while (esquerda <= direita) {
+        meio = esquerda + (direita - esquerda) / 2;
+
+        if (usuarios[meio].matricula == matricula) {
+            return meio;
+        }
+        if (usuarios[meio].matricula < matricula) {
+            esquerda = meio + 1;
+        } else {
+            direita = meio - 1;
+        }
+    }
+
+    return -1;
+}
