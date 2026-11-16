@@ -56,6 +56,7 @@ int main(void) {
         printf("8 - Registrar emprestimo\n");
         printf("9 - Registrar devolucao\n");
         printf("10 - Listar emprestimos\n");
+        printf("11 - Consultar multa de emprestimo\n");
         printf("\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
@@ -115,6 +116,9 @@ int main(void) {
                 break;
             case 10:
                 listarEmprestimos(emprestimos, quantidadeEmprestimos);
+                break;
+            case 11:
+                consultarMultaEmprestimo(emprestimos, quantidadeEmprestimos);
                 break;
             case 0:
                 /* Micael: salva os dados nos arquivos antes de encerrar. */

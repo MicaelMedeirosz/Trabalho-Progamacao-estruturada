@@ -102,10 +102,19 @@ void carregarEmprestimos(Emprestimo emprestimos[], int *quantidade) {
     i = 0;
     /* Micael: le cada linha do arquivo ate o final ou encher o array. */
     while (i < MAX_EMPRESTIMOS &&
-           fscanf(arquivo, "%d;%d;%d",
+           fscanf(arquivo, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d",
                   &emprestimos[i].codigoLivro,
                   &emprestimos[i].matriculaUsuario,
-                  &emprestimos[i].ativo) == 3) {
+                  &emprestimos[i].ativo,
+                  &emprestimos[i].diaEmp,
+                  &emprestimos[i].mesEmp,
+                  &emprestimos[i].anoEmp,
+                  &emprestimos[i].diaPrev,
+                  &emprestimos[i].mesPrev,
+                  &emprestimos[i].anoPrev,
+                  &emprestimos[i].diaDev,
+                  &emprestimos[i].mesDev,
+                  &emprestimos[i].anoDev) == 12) {
         i++;
     }
 
@@ -125,10 +134,19 @@ void salvarEmprestimos(Emprestimo emprestimos[], int quantidade) {
     }
 
     for (i = 0; i < quantidade; i++) {
-        fprintf(arquivo, "%d;%d;%d\n",
+        fprintf(arquivo, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n",
                 emprestimos[i].codigoLivro,
                 emprestimos[i].matriculaUsuario,
-                emprestimos[i].ativo);
+                emprestimos[i].ativo,
+                emprestimos[i].diaEmp,
+                emprestimos[i].mesEmp,
+                emprestimos[i].anoEmp,
+                emprestimos[i].diaPrev,
+                emprestimos[i].mesPrev,
+                emprestimos[i].anoPrev,
+                emprestimos[i].diaDev,
+                emprestimos[i].mesDev,
+                emprestimos[i].anoDev);
     }
 
     fclose(arquivo);
