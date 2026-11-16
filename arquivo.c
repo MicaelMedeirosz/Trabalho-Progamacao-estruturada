@@ -1,28 +1,51 @@
 /* arquivo.c - leitura e gravacao dos arquivos de texto. */
 #include <stdio.h>
+#include <stdlib.h>
 #include "arquivo.h"
 
 /* Micael: carrega os livros armazenados no arquivo livros.txt. */
-void carregarLivros(Livro livros[], int *quantidade) {
+void carregarLivros(Livro **livros, int *quantidade, int *capacidade) {
     FILE *arquivo;
-    int i;
+    int capacidadeAtual = CAPACIDADE_INICIAL_LIVROS;
+    Livro *array = (Livro *)malloc(capacidadeAtual * sizeof(Livro));
+    int i = 0;
+
+    if (array == NULL) {
+        printf("Erro: memoria insuficiente para carregar livros.\n");
+        return;
+    }
 
     /* Se o arquivo ainda nao existe, e a primeira execucao do sistema. */
     arquivo = fopen("livros.txt", "r");
     if (arquivo == NULL) {
+        *livros = array;
+        *quantidade = 0;
+        *capacidade = capacidadeAtual;
         return;
     }
 
-    i = 0;
-    /* Micael: le cada linha do arquivo ate o final ou encher o array. */
-    while (i < MAX_LIVROS &&
-           fscanf(arquivo, "%d;%99[^;];%99[^;];%d;%d",
-                  &livros[i].codigo, livros[i].titulo, livros[i].autor,
-                  &livros[i].ano, &livros[i].quantidade) == 5) {
+    /* Micael: le cada linha do arquivo, redimensionando quando necessario. */
+    while (fscanf(arquivo, "%d;%99[^;];%99[^;];%d;%d",
+                  &array[i].codigo, array[i].titulo, array[i].autor,
+                  &array[i].ano, &array[i].quantidade) == 5) {
         i++;
+        if (i >= capacidadeAtual) {
+            int novaCapacidade = capacidadeAtual * 2;
+            Livro *novoArray = (Livro *)realloc(array, novaCapacidade * sizeof(Livro));
+            if (novoArray == NULL) {
+                printf("Erro: memoria insuficiente para carregar livros.\n");
+                free(array);
+                fclose(arquivo);
+                return;
+            }
+            array = novoArray;
+            capacidadeAtual = novaCapacidade;
+        }
     }
 
     *quantidade = i;
+    *capacidade = capacidadeAtual;
+    *livros = array;
     fclose(arquivo);
 }
 
@@ -47,25 +70,47 @@ void salvarLivros(Livro livros[], int quantidade) {
 }
 
 /* Micael: carrega os usuarios armazenados no arquivo usuarios.txt. */
-void carregarUsuarios(Usuario usuarios[], int *quantidade) {
+void carregarUsuarios(Usuario **usuarios, int *quantidade, int *capacidade) {
     FILE *arquivo;
-    int i;
+    int capacidadeAtual = CAPACIDADE_INICIAL_USUARIOS;
+    Usuario *array = (Usuario *)malloc(capacidadeAtual * sizeof(Usuario));
+    int i = 0;
+
+    if (array == NULL) {
+        printf("Erro: memoria insuficiente para carregar usuarios.\n");
+        return;
+    }
 
     /* Se o arquivo ainda nao existe, e a primeira execucao do sistema. */
     arquivo = fopen("usuarios.txt", "r");
     if (arquivo == NULL) {
+        *usuarios = array;
+        *quantidade = 0;
+        *capacidade = capacidadeAtual;
         return;
     }
 
-    i = 0;
-    /* Micael: le cada linha do arquivo ate o final ou encher o array. */
-    while (i < MAX_USUARIOS &&
-           fscanf(arquivo, "%d;%99[^;];%99[^\n]",
-                  &usuarios[i].matricula, usuarios[i].nome, usuarios[i].curso) == 3) {
+    /* Micael: le cada linha do arquivo, redimensionando quando necessario. */
+    while (fscanf(arquivo, "%d;%99[^;];%99[^\n]",
+                  &array[i].matricula, array[i].nome, array[i].curso) == 3) {
         i++;
+        if (i >= capacidadeAtual) {
+            int novaCapacidade = capacidadeAtual * 2;
+            Usuario *novoArray = (Usuario *)realloc(array, novaCapacidade * sizeof(Usuario));
+            if (novoArray == NULL) {
+                printf("Erro: memoria insuficiente para carregar usuarios.\n");
+                free(array);
+                fclose(arquivo);
+                return;
+            }
+            array = novoArray;
+            capacidadeAtual = novaCapacidade;
+        }
     }
 
     *quantidade = i;
+    *capacidade = capacidadeAtual;
+    *usuarios = array;
     fclose(arquivo);
 }
 
@@ -89,36 +134,58 @@ void salvarUsuarios(Usuario usuarios[], int quantidade) {
 }
 
 /* Micael: carrega os emprestimos armazenados no arquivo emprestimos.txt. */
-void carregarEmprestimos(Emprestimo emprestimos[], int *quantidade) {
+void carregarEmprestimos(Emprestimo **emprestimos, int *quantidade, int *capacidade) {
     FILE *arquivo;
-    int i;
+    int capacidadeAtual = CAPACIDADE_INICIAL_EMPRESTIMOS;
+    Emprestimo *array = (Emprestimo *)malloc(capacidadeAtual * sizeof(Emprestimo));
+    int i = 0;
+
+    if (array == NULL) {
+        printf("Erro: memoria insuficiente para carregar emprestimos.\n");
+        return;
+    }
 
     /* Se o arquivo ainda nao existe, e a primeira execucao do sistema. */
     arquivo = fopen("emprestimos.txt", "r");
     if (arquivo == NULL) {
+        *emprestimos = array;
+        *quantidade = 0;
+        *capacidade = capacidadeAtual;
         return;
     }
 
-    i = 0;
-    /* Micael: le cada linha do arquivo ate o final ou encher o array. */
-    while (i < MAX_EMPRESTIMOS &&
-           fscanf(arquivo, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d",
-                  &emprestimos[i].codigoLivro,
-                  &emprestimos[i].matriculaUsuario,
-                  &emprestimos[i].ativo,
-                  &emprestimos[i].diaEmp,
-                  &emprestimos[i].mesEmp,
-                  &emprestimos[i].anoEmp,
-                  &emprestimos[i].diaPrev,
-                  &emprestimos[i].mesPrev,
-                  &emprestimos[i].anoPrev,
-                  &emprestimos[i].diaDev,
-                  &emprestimos[i].mesDev,
-                  &emprestimos[i].anoDev) == 12) {
+    /* Micael: le cada linha do arquivo, redimensionando quando necessario. */
+    while (fscanf(arquivo, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d",
+                  &array[i].codigoLivro,
+                  &array[i].matriculaUsuario,
+                  &array[i].ativo,
+                  &array[i].diaEmp,
+                  &array[i].mesEmp,
+                  &array[i].anoEmp,
+                  &array[i].diaPrev,
+                  &array[i].mesPrev,
+                  &array[i].anoPrev,
+                  &array[i].diaDev,
+                  &array[i].mesDev,
+                  &array[i].anoDev) == 12) {
         i++;
+        if (i >= capacidadeAtual) {
+            int novaCapacidade = capacidadeAtual * 2;
+            Emprestimo *novoArray = (Emprestimo *)realloc(array, novaCapacidade * sizeof(Emprestimo));
+            if (novoArray == NULL) {
+                printf("Erro: memoria insuficiente para carregar emprestimos.\n");
+                free(array);
+                fclose(arquivo);
+                return;
+            }
+            array = novoArray;
+            capacidadeAtual = novaCapacidade;
+        }
     }
 
     *quantidade = i;
+    *capacidade = capacidadeAtual;
+    *emprestimos = array;
     fclose(arquivo);
 }
 

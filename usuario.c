@@ -1,23 +1,30 @@
 /* usuario.c - funcoes de cadastro, listagem e busca de usuarios. */
 #include <stdio.h>
+#include <stdlib.h>
 #include "usuario.h"
 
-/* Micael: cadastra um novo usuario no array de usuarios. */
-void cadastrarUsuario(Usuario usuarios[], int *quantidade) {
-    /* Micael: verifica se o array de usuarios ja esta cheio. */
-    if (*quantidade >= MAX_USUARIOS) {
-        printf("Nao e possivel cadastrar mais usuarios. Limite alcancado.\n");
-        return;
+/* Micael: cadastra um novo usuario no array dinamico de usuarios. */
+void cadastrarUsuario(Usuario **usuarios, int *quantidade, int *capacidade) {
+    /* Se atingiu a capacidade, redimensiona com realloc. */
+    if (*quantidade >= *capacidade) {
+        int novaCapacidade = *capacidade * 2;
+        Usuario *novoArray = (Usuario *)realloc(*usuarios, novaCapacidade * sizeof(Usuario));
+        if (novoArray == NULL) {
+            printf("Erro: memoria insuficiente para cadastrar usuario.\n");
+            return;
+        }
+        *usuarios = novoArray;
+        *capacidade = novaCapacidade;
     }
 
     printf("\nMatricula: ");
-    scanf("%d", &usuarios[*quantidade].matricula);
+    scanf("%d", &(*usuarios)[*quantidade].matricula);
 
     printf("Nome: ");
-    scanf(" %[^\n]", usuarios[*quantidade].nome);
+    scanf(" %[^\n]", (*usuarios)[*quantidade].nome);
 
     printf("Curso: ");
-    scanf(" %[^\n]", usuarios[*quantidade].curso);
+    scanf(" %[^\n]", (*usuarios)[*quantidade].curso);
 
     (*quantidade)++;
     printf("Usuario cadastrado com sucesso.\n");

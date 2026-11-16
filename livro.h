@@ -6,6 +6,9 @@
 #define TAM_TITULO 100
 #define TAM_AUTOR 100
 
+/* Capacidade inicial do array dinamico de livros. */
+#define CAPACIDADE_INICIAL_LIVROS 10
+
 /* Micael: struct que representa um livro da biblioteca. */
 typedef struct {
     int codigo;
@@ -15,7 +18,7 @@ typedef struct {
     int quantidade;
 } Livro;
 
-void cadastrarLivro(Livro livros[], int *quantidade);
+void cadastrarLivro(Livro **livros, int *quantidade, int *capacidade);
 
 void listarLivros(Livro livros[], int quantidade);
 

@@ -6,13 +6,13 @@
 #include "usuario.h"
 #include "emprestimo.h"
 
-void carregarLivros(Livro livros[], int *quantidade);
+void carregarLivros(Livro **livros, int *quantidade, int *capacidade);
 void salvarLivros(Livro livros[], int quantidade);
 
-void carregarUsuarios(Usuario usuarios[], int *quantidade);
+void carregarUsuarios(Usuario **usuarios, int *quantidade, int *capacidade);
 void salvarUsuarios(Usuario usuarios[], int quantidade);
 
-void carregarEmprestimos(Emprestimo emprestimos[], int *quantidade);
+void carregarEmprestimos(Emprestimo **emprestimos, int *quantidade, int *capacidade);
 void salvarEmprestimos(Emprestimo emprestimos[], int quantidade);
 
 #endif

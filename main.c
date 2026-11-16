@@ -1,5 +1,6 @@
 /* main.c - ponto de entrada e menu principal do sistema de biblioteca. */
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "livro.h"
 #include "usuario.h"
@@ -23,22 +24,25 @@ int lerOpcao(void) {
 }
 
 int main(void) {
-    /* Micael: arrays estaticos de livros e usuarios com seus contadores. */
-    Livro livros[MAX_LIVROS];
-    Usuario usuarios[MAX_USUARIOS];
-    Emprestimo emprestimos[MAX_EMPRESTIMOS];
+    /* Micael: arrays dinamicos de livros, usuarios e emprestimos. */
+    Livro *livros = NULL;
+    Usuario *usuarios = NULL;
+    Emprestimo *emprestimos = NULL;
     int quantidadeLivros = 0;
     int quantidadeUsuarios = 0;
     int quantidadeEmprestimos = 0;
+    int capacidadeLivros = CAPACIDADE_INICIAL_LIVROS;
+    int capacidadeUsuarios = CAPACIDADE_INICIAL_USUARIOS;
+    int capacidadeEmprestimos = CAPACIDADE_INICIAL_EMPRESTIMOS;
     int opcao;
     int posicao;
     int matriculaBusca;
     char textoBusca[TAM_TITULO];
 
     /* Micael: carrega os livros salvos no arquivo de texto ao iniciar. */
-    carregarLivros(livros, &quantidadeLivros);
-    carregarUsuarios(usuarios, &quantidadeUsuarios);
-    carregarEmprestimos(emprestimos, &quantidadeEmprestimos);
+    carregarLivros(&livros, &quantidadeLivros, &capacidadeLivros);
+    carregarUsuarios(&usuarios, &quantidadeUsuarios, &capacidadeUsuarios);
+    carregarEmprestimos(&emprestimos, &quantidadeEmprestimos, &capacidadeEmprestimos);
     do {
         printf("\n");
         printf("========================================\n");
@@ -64,7 +68,7 @@ int main(void) {
 
         switch (opcao) {
             case 1:
-                cadastrarLivro(livros, &quantidadeLivros);
+                cadastrarLivro(&livros, &quantidadeLivros, &capacidadeLivros);
                 break;
             case 2:
                 listarLivros(livros, quantidadeLivros);
@@ -90,7 +94,7 @@ int main(void) {
                 }
                 break;
             case 5:
-                cadastrarUsuario(usuarios, &quantidadeUsuarios);
+                cadastrarUsuario(&usuarios, &quantidadeUsuarios, &capacidadeUsuarios);
                 break;
             case 6:
                 listarUsuarios(usuarios, quantidadeUsuarios);
@@ -106,7 +110,7 @@ int main(void) {
                 }
                 break;
             case 8:
-                registrarEmprestimo(emprestimos, &quantidadeEmprestimos,
+                registrarEmprestimo(&emprestimos, &quantidadeEmprestimos, &capacidadeEmprestimos,
                                    livros, quantidadeLivros,
                                    usuarios, quantidadeUsuarios);
                 break;
@@ -125,6 +129,10 @@ int main(void) {
                 salvarLivros(livros, quantidadeLivros);
                 salvarUsuarios(usuarios, quantidadeUsuarios);
                 salvarEmprestimos(emprestimos, quantidadeEmprestimos);
+                /* Micael: libera a memoria alocada dinamicamente. */
+                free(livros);
+                free(usuarios);
+                free(emprestimos);
                 printf("Encerrando o sistema...\n");
                 break;
             default:

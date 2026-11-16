@@ -7,6 +7,9 @@
 
 #define MAX_EMPRESTIMOS 100
 
+/* Capacidade inicial do array dinamico de emprestimos. */
+#define CAPACIDADE_INICIAL_EMPRESTIMOS 10
+
 /* Taxa diaria de multa por atraso (configuravel). */
 #define TAXA_MULTA_DIARIA 2.00f
 
@@ -30,7 +33,7 @@ typedef struct {
     int anoDev;
 } Emprestimo;
 
-void registrarEmprestimo(Emprestimo emprestimos[], int *quantidade,
+void registrarEmprestimo(Emprestimo **emprestimos, int *quantidade, int *capacidade,
                          Livro livros[], int quantidadeLivros,
                          Usuario usuarios[], int quantidadeUsuarios);
 

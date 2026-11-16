@@ -1,30 +1,37 @@
 /* livro.c - funcoes de cadastro, listagem e busca de livros. */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "livro.h"
 
-/* Micael: cadastra um novo livro no array de livros. */
-void cadastrarLivro(Livro livros[], int *quantidade) {
-    /* Micael: verifica se o array de livros ja esta cheio. */
-    if (*quantidade >= MAX_LIVROS) {
-        printf("Nao e possivel cadastrar mais livros. Limite alcancado.\n");
-        return;
+/* Micael: cadastra um novo livro no array dinamico de livros. */
+void cadastrarLivro(Livro **livros, int *quantidade, int *capacidade) {
+    /* Se atingiu a capacidade, redimensiona com realloc. */
+    if (*quantidade >= *capacidade) {
+        int novaCapacidade = *capacidade * 2;
+        Livro *novoArray = (Livro *)realloc(*livros, novaCapacidade * sizeof(Livro));
+        if (novoArray == NULL) {
+            printf("Erro: memoria insuficiente para cadastrar livro.\n");
+            return;
+        }
+        *livros = novoArray;
+        *capacidade = novaCapacidade;
     }
 
     printf("\nCodigo: ");
-    scanf("%d", &livros[*quantidade].codigo);
+    scanf("%d", &(*livros)[*quantidade].codigo);
 
     printf("Titulo: ");
-    scanf(" %[^\n]", livros[*quantidade].titulo);
+    scanf(" %[^\n]", (*livros)[*quantidade].titulo);
 
     printf("Autor: ");
-    scanf(" %[^\n]", livros[*quantidade].autor);
+    scanf(" %[^\n]", (*livros)[*quantidade].autor);
 
     printf("Ano: ");
-    scanf("%d", &livros[*quantidade].ano);
+    scanf("%d", &(*livros)[*quantidade].ano);
 
     printf("Quantidade disponivel: ");
-    scanf("%d", &livros[*quantidade].quantidade);
+    scanf("%d", &(*livros)[*quantidade].quantidade);
 
     (*quantidade)++;
     printf("Livro cadastrado com sucesso.\n");

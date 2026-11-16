@@ -1,9 +1,10 @@
 /* emprestimo.c - funcoes de emprestimo e devolucao de livros. */
 #include <stdio.h>
+#include <stdlib.h>
 #include "emprestimo.h"
 
 /* Micael: registra o emprestimo de um livro para um usuario. */
-void registrarEmprestimo(Emprestimo emprestimos[], int *quantidade,
+void registrarEmprestimo(Emprestimo **emprestimos, int *quantidade, int *capacidade,
                          Livro livros[], int quantidadeLivros,
                          Usuario usuarios[], int quantidadeUsuarios) {
     int codigoLivro;
@@ -13,10 +14,16 @@ void registrarEmprestimo(Emprestimo emprestimos[], int *quantidade,
     int prazoDias;
     int diaPrev, mesPrev, anoPrev;
 
-    /* Micael: verifica se o array de emprestimos ja esta cheio. */
-    if (*quantidade >= MAX_EMPRESTIMOS) {
-        printf("Nao e possivel registrar mais emprestimos. Limite alcancado.\n");
-        return;
+    /* Se atingiu a capacidade, redimensiona com realloc. */
+    if (*quantidade >= *capacidade) {
+        int novaCapacidade = *capacidade * 2;
+        Emprestimo *novoArray = (Emprestimo *)realloc(*emprestimos, novaCapacidade * sizeof(Emprestimo));
+        if (novoArray == NULL) {
+            printf("Erro: memoria insuficiente para registrar emprestimo.\n");
+            return;
+        }
+        *emprestimos = novoArray;
+        *capacidade = novaCapacidade;
     }
 
     printf("\nCodigo do livro: ");
@@ -45,17 +52,17 @@ void registrarEmprestimo(Emprestimo emprestimos[], int *quantidade,
     }
 
     printf("Data do emprestimo (dd mm aaaa): ");
-    scanf("%d %d %d", &emprestimos[*quantidade].diaEmp,
-              &emprestimos[*quantidade].mesEmp,
-              &emprestimos[*quantidade].anoEmp);
+    scanf("%d %d %d", &(*emprestimos)[*quantidade].diaEmp,
+              &(*emprestimos)[*quantidade].mesEmp,
+              &(*emprestimos)[*quantidade].anoEmp);
 
     printf("Prazo para devolucao em dias: ");
     scanf("%d", &prazoDias);
 
     /* Calcula data prevista de devolucao (simples: soma dias ao dia). */
-    diaPrev = emprestimos[*quantidade].diaEmp + prazoDias;
-    mesPrev = emprestimos[*quantidade].mesEmp;
-    anoPrev = emprestimos[*quantidade].anoEmp;
+    diaPrev = (*emprestimos)[*quantidade].diaEmp + prazoDias;
+    mesPrev = (*emprestimos)[*quantidade].mesEmp;
+    anoPrev = (*emprestimos)[*quantidade].anoEmp;
     while (diaPrev > 30) {
         diaPrev -= 30;
         mesPrev++;
@@ -64,27 +71,27 @@ void registrarEmprestimo(Emprestimo emprestimos[], int *quantidade,
             anoPrev++;
         }
     }
-    emprestimos[*quantidade].diaPrev = diaPrev;
-    emprestimos[*quantidade].mesPrev = mesPrev;
-    emprestimos[*quantidade].anoPrev = anoPrev;
+    (*emprestimos)[*quantidade].diaPrev = diaPrev;
+    (*emprestimos)[*quantidade].mesPrev = mesPrev;
+    (*emprestimos)[*quantidade].anoPrev = anoPrev;
 
-    emprestimos[*quantidade].diaDev = 0;
-    emprestimos[*quantidade].mesDev = 0;
-    emprestimos[*quantidade].anoDev = 0;
+    (*emprestimos)[*quantidade].diaDev = 0;
+    (*emprestimos)[*quantidade].mesDev = 0;
+    (*emprestimos)[*quantidade].anoDev = 0;
 
     /* Micael: registra o emprestimo e diminui uma unidade do acervo. */
-    emprestimos[*quantidade].codigoLivro = codigoLivro;
-    emprestimos[*quantidade].matriculaUsuario = matricula;
-    emprestimos[*quantidade].ativo = 1;
+    (*emprestimos)[*quantidade].codigoLivro = codigoLivro;
+    (*emprestimos)[*quantidade].matriculaUsuario = matricula;
+    (*emprestimos)[*quantidade].ativo = 1;
     (*quantidade)++;
 
     livros[posLivro].quantidade--;
 
     printf("Emprestimo registrado com sucesso.\n");
     printf("Data prevista para devolucao: %02d/%02d/%04d\n",
-           emprestimos[*quantidade - 1].diaPrev,
-           emprestimos[*quantidade - 1].mesPrev,
-           emprestimos[*quantidade - 1].anoPrev);
+           (*emprestimos)[*quantidade - 1].diaPrev,
+           (*emprestimos)[*quantidade - 1].mesPrev,
+           (*emprestimos)[*quantidade - 1].anoPrev);
 }
 
 /* Micael: registra a devolucao e devolve uma unidade ao acervo. */

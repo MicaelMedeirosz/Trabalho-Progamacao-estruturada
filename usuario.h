@@ -6,6 +6,9 @@
 #define TAM_NOME 100
 #define TAM_CURSO 100
 
+/* Capacidade inicial do array dinamico de usuarios. */
+#define CAPACIDADE_INICIAL_USUARIOS 10
+
 /* Micael: struct que representa um usuario da biblioteca. */
 typedef struct {
     int matricula;
@@ -13,7 +16,7 @@ typedef struct {
     char curso[TAM_CURSO];
 } Usuario;
 
-void cadastrarUsuario(Usuario usuarios[], int *quantidade);
+void cadastrarUsuario(Usuario **usuarios, int *quantidade, int *capacidade);
 
 void listarUsuarios(Usuario usuarios[], int quantidade);
 
