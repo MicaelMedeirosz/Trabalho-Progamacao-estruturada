@@ -233,3 +233,64 @@ void consultarMultaEmprestimo(Emprestimo emprestimos[], int quantidade) {
         printf("Emprestimo nao encontrado.\n");
     }
 }
+
+/* Parte 2: lista o historico completo de emprestimos de um usuario. */
+/* Aproveita a estrutura existente de Emprestimo, sem criar estrutura paralela. */
+void listarHistoricoUsuario(Emprestimo emprestimos[], int quantidade,
+                            Usuario usuarios[], int quantidadeUsuarios,
+                            Livro livros[], int quantidadeLivros) {
+    int matricula;
+    int i;
+    int posUsuario;
+    int temEmprestimo = 0;
+
+    (void)livros;
+    (void)quantidadeLivros;
+
+    if (quantidadeUsuarios == 0) {
+        printf("\nNenhum usuario cadastrado.\n");
+        return;
+    }
+
+    printf("\nMatricula do usuario: ");
+    scanf("%d", &matricula);
+
+    /* Verifica se o usuario existe. */
+    posUsuario = buscarUsuarioPorMatricula(usuarios, quantidadeUsuarios, matricula);
+    if (posUsuario == -1) {
+        printf("Usuario nao encontrado.\n");
+        return;
+    }
+
+    printf("\n========================================\n");
+    printf("   HISTORICO DE EMPRESTIMOS - USUARIO\n");
+    printf("========================================\n");
+    printf("Matricula: %d\n", usuarios[posUsuario].matricula);
+    printf("Nome: %s\n", usuarios[posUsuario].nome);
+    printf("Curso: %s\n", usuarios[posUsuario].curso);
+    printf("----------------------------------------\n");
+
+    for (i = 0; i < quantidade; i++) {
+        if (emprestimos[i].matriculaUsuario == matricula) {
+            temEmprestimo = 1;
+            printf("Codigo do livro: %d\n", emprestimos[i].codigoLivro);
+            printf("Situacao: %s\n", emprestimos[i].ativo == 1 ? "Emprestado" : "Devolvido");
+            if (emprestimos[i].ativo == 1) {
+                printf("Data do emprestimo: %02d/%02d/%04d\n",
+                       emprestimos[i].diaEmp, emprestimos[i].mesEmp, emprestimos[i].anoEmp);
+                printf("Data prevista devolucao: %02d/%02d/%04d\n",
+                       emprestimos[i].diaPrev, emprestimos[i].mesPrev, emprestimos[i].anoPrev);
+            } else {
+                printf("Data da devolucao: %02d/%02d/%04d\n",
+                       emprestimos[i].diaDev, emprestimos[i].mesDev, emprestimos[i].anoDev);
+                printf("Dias de atraso: %d\n", calcularDiasAtraso(emprestimos[i]));
+                printf("Valor da multa: R$ %.2f\n", calcularMulta(emprestimos[i]));
+            }
+            printf("----------------------------------------\n");
+        }
+    }
+
+    if (!temEmprestimo) {
+        printf("Nenhum emprestimo registrado para este usuario.\n");
+    }
+}

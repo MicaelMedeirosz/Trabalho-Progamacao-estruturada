@@ -49,4 +49,9 @@ float calcularMulta(Emprestimo e);
 
 void consultarMultaEmprestimo(Emprestimo emprestimos[], int quantidade);
 
+/* Parte 2: historico de emprestimos por usuario. */
+void listarHistoricoUsuario(Emprestimo emprestimos[], int quantidade,
+                            Usuario usuarios[], int quantidadeUsuarios,
+                            Livro livros[], int quantidadeLivros);
+
 #endif

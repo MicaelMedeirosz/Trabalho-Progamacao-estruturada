@@ -74,6 +74,7 @@ int main(void) {
         printf("19 - Salvar dados em arquivo binario\n");
         printf("20 - Carregar dados de arquivo binario\n");
         printf("21 - Gerar relatorio de desempenho\n");
+        printf("22 - Historico de emprestimos por usuario\n");
         printf("\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
@@ -193,6 +194,11 @@ int main(void) {
                 gerarRelatorioDesempenho(livros, quantidadeLivros,
                                          usuarios, quantidadeUsuarios,
                                          emprestimos, quantidadeEmprestimos);
+                break;
+            case 22:
+                listarHistoricoUsuario(emprestimos, quantidadeEmprestimos,
+                                       usuarios, quantidadeUsuarios,
+                                       livros, quantidadeLivros);
                 break;
             case 0:
                 /* Micael: salva os dados nos arquivos antes de encerrar. */
