@@ -54,4 +54,9 @@ void listarHistoricoUsuario(Emprestimo emprestimos[], int quantidade,
                             Usuario usuarios[], int quantidadeUsuarios,
                             Livro livros[], int quantidadeLivros);
 
+/* Parte 2: lista emprestimos atrasados com base na data atual. */
+void listarEmprestimosAtrasados(Emprestimo emprestimos[], int quantidade,
+                                Livro livros[], int quantidadeLivros,
+                                Usuario usuarios[], int quantidadeUsuarios);
+
 #endif

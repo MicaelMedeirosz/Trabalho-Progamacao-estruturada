@@ -1,6 +1,7 @@
 /* emprestimo.c - funcoes de emprestimo e devolucao de livros. */
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "emprestimo.h"
 
 /* Micael: registra o emprestimo de um livro para um usuario. */
@@ -292,5 +293,79 @@ void listarHistoricoUsuario(Emprestimo emprestimos[], int quantidade,
 
     if (!temEmprestimo) {
         printf("Nenhum emprestimo registrado para este usuario.\n");
+    }
+}
+
+/* Parte 2: lista emprestimos atrasados com base na data atual do sistema. */
+void listarEmprestimosAtrasados(Emprestimo emprestimos[], int quantidade,
+                                Livro livros[], int quantidadeLivros,
+                                Usuario usuarios[], int quantidadeUsuarios) {
+    time_t tempoAtual;
+    struct tm *dataAtual;
+    int diaAtual, mesAtual, anoAtual;
+    int i;
+    int encontrados = 0;
+    int posLivro;
+    int posUsuario;
+
+    tempoAtual = time(NULL);
+    dataAtual = localtime(&tempoAtual);
+    diaAtual = dataAtual->tm_mday;
+    mesAtual = dataAtual->tm_mon + 1;
+    anoAtual = dataAtual->tm_year + 1900;
+
+    printf("\n========================================\n");
+    printf("   EMPRESTIMOS ATRASADOS\n");
+    printf("========================================\n");
+    printf("Data atual: %02d/%02d/%04d\n", diaAtual, mesAtual, anoAtual);
+    printf("Taxa de multa: R$ %.2f por dia\n", TAXA_MULTA_DIARIA);
+    printf("----------------------------------------\n");
+
+    for (i = 0; i < quantidade; i++) {
+        if (emprestimos[i].ativo != 1) {
+            continue;
+        }
+
+        /* Verifica se a data prevista ja passou da data atual. */
+        if (emprestimos[i].anoPrev < anoAtual ||
+            (emprestimos[i].anoPrev == anoAtual && emprestimos[i].mesPrev < mesAtual) ||
+            (emprestimos[i].anoPrev == anoAtual && emprestimos[i].mesPrev == mesAtual &&
+             emprestimos[i].diaPrev < diaAtual)) {
+
+            encontrados = 1;
+
+            posLivro = buscarLivroPorCodigo(livros, quantidadeLivros, emprestimos[i].codigoLivro);
+            posUsuario = buscarUsuarioPorMatricula(usuarios, quantidadeUsuarios,
+                                                   emprestimos[i].matriculaUsuario);
+
+            printf("Codigo do livro: %d", emprestimos[i].codigoLivro);
+            if (posLivro != -1) {
+                printf(" - %s", livros[posLivro].titulo);
+            }
+            printf("\nMatricula do usuario: %d", emprestimos[i].matriculaUsuario);
+            if (posUsuario != -1) {
+                printf(" - %s", usuarios[posUsuario].nome);
+            }
+            printf("\nData prevista devolucao: %02d/%02d/%04d\n",
+                   emprestimos[i].diaPrev, emprestimos[i].mesPrev, emprestimos[i].anoPrev);
+
+            /* Calcula atraso baseado na data atual (emprestimo ainda ativo). */
+            int diasPrev = emprestimos[i].anoPrev * 360 +
+                           emprestimos[i].mesPrev * 30 +
+                           emprestimos[i].diaPrev;
+            int diasAtual = anoAtual * 360 + mesAtual * 30 + diaAtual;
+            int atraso = diasAtual - diasPrev;
+            if (atraso < 0) {
+                atraso = 0;
+            }
+
+            printf("Dias de atraso: %d\n", atraso);
+            printf("Valor da multa: R$ %.2f\n", atraso * TAXA_MULTA_DIARIA);
+            printf("----------------------------------------\n");
+        }
+    }
+
+    if (!encontrados) {
+        printf("Nenhum emprestimo atrasado encontrado.\n");
     }
 }
