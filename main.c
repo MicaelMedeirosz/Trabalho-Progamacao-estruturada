@@ -6,6 +6,7 @@
 #include "usuario.h"
 #include "emprestimo.h"
 #include "arquivo.h"
+#include "relatorio.h"
 
 /* Micael: le a opcao do menu e trata o caso do usuario digitar letras.
    Se a entrada nao for um numero, limpa o buffer e devolve -1,
@@ -72,6 +73,7 @@ int main(void) {
         printf("\n");
         printf("19 - Salvar dados em arquivo binario\n");
         printf("20 - Carregar dados de arquivo binario\n");
+        printf("21 - Gerar relatorio de desempenho\n");
         printf("\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
@@ -186,6 +188,11 @@ int main(void) {
                 carregarUsuariosBinario(&usuarios, &quantidadeUsuarios, &capacidadeUsuarios);
                 carregarEmprestimosBinario(&emprestimos, &quantidadeEmprestimos, &capacidadeEmprestimos);
                 printf("Dados carregados de arquivos binarios.\n");
+                break;
+            case 21:
+                gerarRelatorioDesempenho(livros, quantidadeLivros,
+                                         usuarios, quantidadeUsuarios,
+                                         emprestimos, quantidadeEmprestimos);
                 break;
             case 0:
                 /* Micael: salva os dados nos arquivos antes de encerrar. */

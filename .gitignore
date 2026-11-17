@@ -10,3 +10,6 @@ emprestimos.txt
 
 # arquivos binarios gerados pelo sistema em execucao
 *.bin
+
+# relatorio de desempenho gerado pelo sistema
+relatorio_desempenho.txt
